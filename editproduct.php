@@ -123,7 +123,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="name" class="control-label col-md-3">Product picturesssssiopouios</label>
+                        <label for="name" class="control-label col-md-3">ppppppppppppppppppppppppppppp</label>
                         <div class="col-md-9">
                             <div class="thumbnail">
                                 <img src="img/<?php echo $prd->picture?>" alt="">
