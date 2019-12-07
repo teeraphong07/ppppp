@@ -14,7 +14,7 @@
     }
     else{
         $name = $_POST['txtName'];
-        $des = $_POST['txtDescription'];
+        $description = $_POST['txtDescription'];
         $price = $_POST['txtPrice'];
         $unitInstock = $_POST['txtStrock'];
         $filename = $_FILES["filepic"]["name"];

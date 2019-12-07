@@ -135,13 +135,15 @@
                                 <p><strong>Price: <?php echo $prd->price?></strong></p>
                                 <p><a href="#" class="btn btn-success">Read more</a></p>
                                 <p><a href="#" class="btn btn-success">Add to Basket</a>
+                                
                                 <a href="editproduct.php?pid=<?php echo $prd->id?>"
                                 class="btn btn-warning">
                                     <i class="glyphicon glyphicon-pencil"></i>Edit                     
                                 </a>
-                                <a href="editproduct.php?pid=<?php echo $prd->id?>"
-                                class="btn btn-danger">
-                                    <i class="glyphicon glyphicon-trash"></i>Edit                     
+                                
+                                <a href="deleteproduct.php?pid=<?php echo $prd->id?>"
+                                class="btn btn-danger" id="lnkdelete">
+                                    <i class="glyphicon glyphicon-trash"></i>Delete                     
                                 </a>
                                 </p>
 
@@ -156,5 +158,18 @@
     </div>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+        });
+        $("#lnkdelete").click(function(){
+            if(confirm("Confirm Delete?")){
+                return true;
+            }
+            else{
+            return false;
+            }
+        });
+    </script>
 </body>
 </html>
