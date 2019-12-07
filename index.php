@@ -142,7 +142,7 @@
                                 </a>
                                 
                                 <a href="deleteproduct.php?pid=<?php echo $prd->id?>"
-                                class="btn btn-danger" id="lnkdelete">
+                                class="btn btn-danger lnkdelete" >
                                     <i class="glyphicon glyphicon-trash"></i>Delete                     
                                 </a>
                                 </p>
@@ -162,7 +162,7 @@
         $(document).ready(function(){
 
         });
-        $("#lnkdelete").click(function(){
+        $(".lnkdelete").click(function(){
             if(confirm("Confirm Delete?")){
                 return true;
             }
