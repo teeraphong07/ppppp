@@ -1,6 +1,25 @@
-<?php 
+<?php
     session_start();
+    if(isset($_GET['category'])){
+        $cat=$_GET['category'];
+    }
+    else{
+        header("location:index.php");
+    }
     include("connect.php");
+    $sql ="SELECT * FROM product WHERE category=$cat ";
+    $result = $conn->query($sql);
+    if(!$result){
+        echo "Error:".$conn->error;
+    }
+    else{
+        if($result->num_rows>0){
+            $prd = $result->fetch_object();
+        }
+        else{
+            $prd=NULL;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,9 +55,9 @@
                         ALL Product <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="index.php?menu=computer">gaminggear</a></li>
-                        <li><a href="index.php?menu=monitor">Monitor</a></li>
-                        <li><a href="index.php?menu=headphone">Headphone</a></li>
+                        <li><a href="showproduct.php?category=1">gaminggear</a></li>
+                        <li><a href="showproduct.php?category=2">Monitor</a></li>
+                        <li><a href="showproduct.php?category=3">Headphone</a></li>
                     </ul>
                 </li>
                 </ul>
@@ -76,58 +95,70 @@
             </div>
         </div>
     </nav>
-        <div class="container">
-            <div class="row">
-                <form action="saveproduct.php" class="form-horizontal" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="name" class="control-label col-md-3">Name :</label>
-                        <div class="col-md-9">
-                            <input type="text" name="txtName" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="name" class="control-label col-md-3">Description :</label>
-                        <div class="col-md-9">
-                            <input type="text" name="txtDescription" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="name" class="control-label col-md-3">Price :</label>
-                        <div class="col-md-9">
-                            <input type="text" name="txtPrice" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="name" class="control-label col-md-3">Strock :</label>
-                        <div class="col-md-9">
-                            <input type="text" name="txtStrock" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="name" class="control-label col-md-3">Product picture</label>
-                        <div class="col-md-9">
-                            <input type="file" name="filepic" class="form-control-file" accept="image/*">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="name" class="control-label col-md-3">Type :</label>
-                        <div class="col-md-9">
-                            <input type="radio" name="rdoType" value="1" checked require>gaminggear</label>
-                            <input type="radio" name="rdoType" value="2" >Monitor</label>
-                            <input type="radio" name="rdoType" value="3" >Headphone</label>
-                        </div>
-                    </div>
-
-                    <div class="from-group">
-                        <div class="col-md-9 col-md-offset-3">
-                            <button type="summit" class="btn btn-primary">Save</button>
-                            <button type="reset" class="btn btn-danger">Reset</button>
-                        </div>
-                    </div>
-                </from>
-            </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>TShop</h1>
+            <p class="lead">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem quis nemo iure architecto libero doloremque nisi nulla, tempore non necessitatibus.</p>
         </div>
+    </div>
+    <div class="container">
+        <div class = "row">
+           <h2 class="text-center">Product</h2>
+           <?php  
+                $sql ="SELECT * FROM product WHERE  category=$cat ";
+                $result = $conn->query($sql);
+                if(!$result){
+                    echo "Error during data retrieval";
+                }
+                else{
+                    while($prd=$result->fetch_object()){
+                
+   
+                ?>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="thumbnail">
+                    <a href="productdetail.php?pid=<?php echo $prd->id; ?>&category=<?php echo $id;?>">
+                        <img src="img/<?php echo $prd->picture;?>" alt="">
+                    </a>
+                    <div class="caption">
+                        <h3><?php echo $prd->name?></h3>
+                            <p><?php echo $prd->description?></p>
+                                <p><strong>Price: <?php echo $prd->price?></strong></p>
+                                <p><a href="#" class="btn btn-success">Read more</a></p>
+                                <p><a href="#" class="btn btn-success">Add to Basket</a>
+                                
+                                <a href="editproduct.php?pid=<?php echo $prd->id?>"
+                                class="btn btn-warning">
+                                    <i class="glyphicon glyphicon-pencil"></i>Edit                     
+                                </a>
+                                
+                                <a href="deleteproduct.php?pid=<?php echo $prd->id?>"
+                                class="btn btn-danger lnkdelete" >
+                                    <i class="glyphicon glyphicon-trash"></i>Delete                     
+                                </a>
+                                </p>
+                    </div>
+                </div>
+           </div>
+            <?php
+                }
+            }
+           ?>
+        </div>
+    </div>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        });
+        $(".lnkdelete").click(function(){
+            if(confirm("Confirm Delete?")){
+                return true;
+            }
+            else{
+            return false;
+            }
+        });
+    </script>
 </body>
 </html>

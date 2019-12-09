@@ -36,9 +36,9 @@
                         ALL Product <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="index.php?menu=computer">gaminggear</a></li>
-                        <li><a href="index.php?menu=monitor">Monitor</a></li>
-                        <li><a href="index.php?menu=headphone">Headphone</a></li>
+                        <li><a href="showproduct.php?category=1">gaminggear</a></li>
+                        <li><a href="showproduct.php?category=2">Monitor</a></li>
+                        <li><a href="showproduct.php?category=3">Headphone</a></li>
                     </ul>
                 </li>
                 </ul>
@@ -85,44 +85,14 @@
     <div class="container">
         <div class = "row">
            <h2 class="text-center">Product</h2>
-           <?php
-
-                if(isset($_GET['menu'])){
-                    $menu = $_GET['menu'];
-                }
-                else{
-                    $menu="";
-                }
-                switch($menu){
-                    case "gaminggear":{
-                        $page = "product";
-                        $id = "gaminggear";
-                        break;
-                    }
-                    case "monitor":{
-                        $page = "product2";
-                        $id = "monitor";
-                        break;
-                    }
-                    case "headphone":{
-                        $page = "product3";
-                        $id = "headphone";
-                        break;
-                    }
-                    default:{
-                        $page = "product";
-                        $id = "computer";
-                    }
-                }        
-                $sql = "SELECT * FROM $page ORDER BY id";
+           <?php  
+                $sql ="SELECT * FROM product ORDER BY id";
                 $result = $conn->query($sql);
                 if(!$result){
                     echo "Error during data retrieval";
                 }
                 else{
                     while($prd=$result->fetch_object()){
-                
-   
                 ?>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="thumbnail">
@@ -146,7 +116,6 @@
                                     <i class="glyphicon glyphicon-trash"></i>Delete                     
                                 </a>
                                 </p>
-
                     </div>
                 </div>
            </div>
@@ -160,7 +129,6 @@
     <script src="js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function(){
-
         });
         $(".lnkdelete").click(function(){
             if(confirm("Confirm Delete?")){
